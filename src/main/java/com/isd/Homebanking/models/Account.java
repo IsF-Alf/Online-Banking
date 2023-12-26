@@ -24,16 +24,13 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, Double balance, Boolean active, AccountType accountType,
-                   Client client, Set<Transaction> transactions)
+    public Account(String number, LocalDate creationDate, Double balance, Boolean active, AccountType accountType)
     {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
         this.active = active;
         this.accountType = accountType;
-        this.client = client;
-        this.transactions = transactions;
     }
 
     public String getId() {

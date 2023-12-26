@@ -19,15 +19,12 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan(Double amount, Integer payment, Double currentAmount, Integer currentPayments, Client client,
-                      Loan loan)
+    public ClientLoan(Double amount, Integer payment, Double currentAmount, Integer currentPayments)
     {
         this.amount = amount;
         this.payment = payment;
         this.currentAmount = currentAmount;
         this.currentPayments = currentPayments;
-        this.client = client;
-        this.loan = loan;
     }
 
     public String getId() {

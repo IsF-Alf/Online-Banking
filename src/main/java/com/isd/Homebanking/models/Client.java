@@ -21,16 +21,12 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String email, String password, Set<Account> accounts,
-                  Set<ClientLoan> clientLoans, Set<Card> cards)
+    public Client(String firstName, String lastName, String email, String password)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.accounts = accounts;
-        this.clientLoans = clientLoans;
-        this.cards = cards;
     }
 
     public String getId() {
