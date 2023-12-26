@@ -1,9 +1,6 @@
 package com.isd.Homebanking.models;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +8,9 @@ import java.util.Set;
 
 @Entity
 public class Loan {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String name;
     private Double maxAmount, interestRate;
     @ElementCollection
@@ -29,7 +28,7 @@ public class Loan {
         this.interestRate = interestRate;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

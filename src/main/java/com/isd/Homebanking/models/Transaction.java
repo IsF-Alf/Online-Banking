@@ -10,7 +10,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private TransactionType type;
-    private Double amount, currrentBalance;
+    private Double amount, currentBalance;
     private String description;
     private LocalDate date;
     @ManyToOne
@@ -27,7 +27,7 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.currrentBalance = currrentBalance;
+        this.currentBalance = currrentBalance;
         this.active = active;
     }
 
@@ -75,12 +75,12 @@ public class Transaction {
         this.account = account;
     }
 
-    public Double getCurrrentBalance() {
-        return currrentBalance;
+    public Double getCurrentBalance() {
+        return currentBalance;
     }
 
-    public void setCurrrentBalance(Double currrentBalance) {
-        this.currrentBalance = currrentBalance;
+    public void setCurrentBalance(Double currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
     public Boolean getActive() {
