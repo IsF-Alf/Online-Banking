@@ -1,15 +1,21 @@
 package com.isd.Homebanking.controllers;
 
 import com.isd.Homebanking.dtos.AccountDTO;
+import com.isd.Homebanking.models.Account;
+import com.isd.Homebanking.models.AccountType;
+import com.isd.Homebanking.models.Client;
 import com.isd.Homebanking.services.AccountService;
+import com.isd.Homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -28,9 +34,9 @@ public class AccountController {
     }
 
     @GetMapping("/accounts/{id}")
-    public ResponseEntity<Object> getAccount(Authentication authentication, @PathVariable Long id) {
+    public ResponseEntity<Object> getAccount(Authentication authentication, @PathVariable String id) {
         Client client = (clientService.findClientByEmail(authentication.getName()));
-        Set<Long> accountsId = client.getAccounts().stream().map(account -> account.getId()).collect(
+        Set<String> accountsId = client.getAccounts().stream().map(account -> account.getId()).collect(
                 Collectors.toSet());
         Account account = accountService.findAccountById(id);
         if (!accountsId.contains(id)) {
@@ -70,7 +76,7 @@ public class AccountController {
     }
 
     @PatchMapping("/clients/current/accounts")
-    public ResponseEntity<Object> deleteAccount(Authentication authentication, @RequestParam Long id) {
+    public ResponseEntity<Object> deleteAccount(Authentication authentication, @RequestParam String id) {
         Client client = clientService.findClientByEmail(authentication.getName());
         Account account = accountService.findById(id);
         if (account == null) {
@@ -90,7 +96,7 @@ public class AccountController {
                     HttpStatus.FORBIDDEN);
         } else {
             account.setActive(false);
-            account.getTransaction().forEach(transaction -> transaction.setActive(false));
+            account.getTransactions().forEach(transaction -> transaction.setActive(false));
             accountService.saveAccount(account);
             return new ResponseEntity<>("Account deleted successfully", HttpStatus.CREATED);
         }
