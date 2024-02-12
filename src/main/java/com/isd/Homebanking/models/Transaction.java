@@ -3,6 +3,7 @@ package com.isd.Homebanking.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Transaction {
@@ -12,7 +13,7 @@ public class Transaction {
     private TransactionType type;
     private Double amount, currentBalance;
     private String description;
-    private LocalDate date;
+    private LocalDateTime date;
     @ManyToOne
     private Account account;
     private Boolean active;
@@ -20,7 +21,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, Double amount, String description, LocalDate date,
+    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date,
                        Double currrentBalance, Boolean active)
     {
         this.type = type;
@@ -59,11 +60,11 @@ public class Transaction {
         this.description = description;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

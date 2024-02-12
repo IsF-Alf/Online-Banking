@@ -1,14 +1,13 @@
 package com.isd.Homebanking.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 public class Card {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String number, cardHolder;
     private CardType type;
