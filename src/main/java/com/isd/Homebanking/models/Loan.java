@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Loan {
@@ -70,6 +71,9 @@ public class Loan {
 
     public void setClientLoans(Set<ClientLoan> clientLoans) {
         this.clientLoans = clientLoans;
+    }
+    public List<Client> getClients() {
+        return clientLoans.stream().map(client -> client.getClient()).collect(Collectors.toList());
     }
     public void addClientLoan(ClientLoan cLientLoan) {
         cLientLoan.setLoan(this);
