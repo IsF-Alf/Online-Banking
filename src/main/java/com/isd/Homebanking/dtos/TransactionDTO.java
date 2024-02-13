@@ -11,7 +11,7 @@ public class TransactionDTO {
     private TransactionType type;
     private Double amount;
     private String description;
-    private LocalDate date;
+    private LocalDateTime date;
     private Double currentBalance;
     private Boolean active;
 
@@ -41,7 +41,7 @@ public class TransactionDTO {
         return description;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
