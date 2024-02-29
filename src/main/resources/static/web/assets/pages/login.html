@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/styleWeb.css">
+    <title>Sign in | Sign up</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center headerLog">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="../images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="../images/logoBank.png" alt="">
+            </nav>
+            <h2>Online Banking</h2>
+        </header>
+        <main class=" d-flex align-items-center flex-column mainLogin">
+            <div class=" transferInp">
+                <form>
+                    <div class="widthForm">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" v-model="email">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="widthForm">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" @keyup.enter="loginClient"
+                            id="exampleInputPassword1" v-model="password">
+                    </div>
+                    <div class="d-flex">
+                        <button type="button" class="Btn" @click.prevent="loginClient" data-text="Sign in">Sign
+                            in</button>
+                        <button v-if="!showRegisterForm" type="button" class="Btn botonRegister"
+                            @click.prevent="toggleRegisterForm" data-text="Sign up">Sign
+                            up</button>
+                    </div>
+                </form>
+                <div v-if="showRegisterForm">
+                    <h3 class="regH3">Register</h3>
+                    <form>
+                        <div class="widthForm">
+                            <label for="disabledTextInput1">Enter your name</label>
+                            <input type="text" id="disabledTextInput1" class="form-control" v-model="firstName">
+                        </div>
+                        <div class="widthForm">
+                            <label for="disabledTextInput2">Enter your lastname</label>
+                            <input type="text" id="disabledTextInput2" class="form-control" v-model="lastName">
+                        </div>
+                        <div class="widthForm">
+                            <label for="exampleInputEmail12">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail12" v-model="emailRegister">
+                        </div>
+                        <div class="widthForm">
+                            <label for="exampleInputPassword12">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword12"
+                                v-model="passwordRegister">
+                        </div>
+                        <button type="button" class="Btn" @click.prevent="registerClient" data-text="Sign up">Sign
+                            up</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer class="d-flex justify-content-around align-items-center">
+            <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+            <div>
+                <img class="imgFoot" src="../images/facebook.png" alt="">
+                <img class="imgFoot" src="../images/instagram.png" alt="">
+                <img class="imgFoot" src="../images/whatsapp.png" alt="">
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/login.js"></script>
+</body>
+
+</html>

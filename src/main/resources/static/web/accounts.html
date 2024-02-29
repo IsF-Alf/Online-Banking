@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking | Accounts</title>
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/style/styleWeb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="./assets/images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="./assets/images/logoBank.png" alt="">
+            </nav>
+            <p v-if="userEmail.includes('mindbank')" class="warninAdmin">Attention Administrators: Please exercise caution when utilizing the services</p>
+            <div class="navLink d-flex justify-content-evenly">
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="Btn"
+                    data-text="Create account">Create account</button>
+                <a v-if="userEmail.includes('mindbank')" class="Btn" href="./assets/pages/newLoan.html" data-text="Create new loan">Create new loan</a>
+                <a class="Btn" href="./assets/pages/card.html" data-text="Cards">Cards</a>
+                <a class="Btn" href="./assets/pages/transfers.html" data-text="Transfer">Transfer</a>
+                <a class="Btn" href="./assets/pages/loanApplication.html" data-text="Loan Application">Loan
+                    Application</a>
+                <button class="Btn" type="button" @click.prevent="logoutClient()" data-text="logout">logout</button>
+            </div>
+            <h2>Welcome, {{clientsInformation.firstName}} {{clientsInformation.lastName}}, to your online bank</h2>
+        </header>
+        <main class=" d-flex align-items-center flex-column">
+            <h3>These are your accounts:</h3>
+            <div class="d-flex accountsPrin">
+                <div class="d-flex gap-3 align-items-center accounts">
+                    <div v-for="account of accounts" class="card checkout">
+                        <label class="title">Number account: {{account.number}}</label>
+                        <div class="details">
+                            <span style="text-align: center !important;"> {{account.accountType}} ACCOUNT</span>
+                            <span></span>
+                            <span>Creation date: </span>
+                            <span>{{account.creationDate}}</span>
+                            <span>Balance:</span>
+                            <span>${{new
+                                Intl.NumberFormat("de-DE").format(account.balance)}}</span>
+                        </div>
+                        <div class="checkout--footer d-flex justify-content-center" style="border-radius: 15px;">
+                            <a :href=`http://localhost:8080/web/assets/pages/account.html?id=${account.id}` class="Btn"
+                                data-text="Transactions">Transactions</a>
+                            <button class="Btn" type="button" @click.prevent="deleteAccount(account.id)"
+                                data-text="Delete account">Delete account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title fs-5" id="exampleModalLabel">ACCOUNT TYPE</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <select v-model="accountType" class="form-select" aria-label="Default select example">
+                                    <option value="" selected>Select account type</option>
+                                    <option value="SAVINGS">SAVINGS</option>
+                                    <option value="CURRENT">CURRENT</option>
+                                </select>
+                            </div>
+                        </div>                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancell</button>
+                            <button @click="createAccount()" type="button" class="btn btn-success">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>Your loans</h3>
+            <div class="d-flex gap-3 align-items-center contLoan" v-if="loans.length>0">
+                <div v-for="loan of loans" class="card checkout">
+                    <label class="title">Type Loan: {{loan.name}}</label>
+                    <div class="details">
+                        <span>Amount: </span>
+                        <span>${{new
+                            Intl.NumberFormat("de-DE").format(loan.amount)}}</span>
+                        <span>Payments:</span>
+                        <span>{{loan.payments}}</span>
+                        <span>Outstanding amount:</span>
+                        <span>${{new
+                            Intl.NumberFormat("de-DE").format(loan.currentAmount)}}</span>
+                        <span>Remaining payments:</span>
+                        <span>{{loan.currentPayments}}</span>
+                    </div>
+                </div>
+            </div>
+            <h2 v-else>You don't have loans</h2>
+            <div class="payLoan">
+                <a class="Btn" href="./assets/pages/payLoan.html" v-if="loans.length>0" data-text="Pay your loan here">Pay your loan here</a>
+            </div>
+    </div>
+    </main>
+    <footer class="d-flex justify-content-around align-items-center">
+        <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+        <div class="contImgFoot">
+            <img class="imgFoot" src="./assets/images/facebook.png" alt="">
+            <img class="imgFoot" src="./assets/images/instagram.png" alt="">
+            <img class="imgFoot" src="./assets/images/whatsapp.png" alt="">
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/scripts/accounts.js"></script>
+</body>
+
+</html>

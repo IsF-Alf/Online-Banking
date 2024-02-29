@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking | Transactions</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style/styleWeb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center headerPayLoan">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="../images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="../images/logoBank.png" alt="">
+            </nav>
+            <div class="navLink d-flex justify-content-evenly">
+                <a class="Btn" href="../../accounts.html" data-text="Accounts">Accounts</a>
+                <a class="Btn" href="./card.html" data-text="Cards">Cards</a>
+                <a class="Btn" href="./transfers.html" data-text="Transfer">Transfer</a>
+                <a class="Btn" href="./loanApplication.html" data-text="Loan application">Loan application</a>
+                <button class="Btn" type="button" @click.prevent="logoutClient()" data-text="logout">logout</button>
+            </div>
+            <h2>Pay your loan here</h2>
+        </header>
+        <main class=" d-flex align-items-center flex-column mainPayLoan">
+            <div class=" transferInp">
+                <div>
+                    <div class="input-group mb-3">
+                        <select v-model="idLoan" class="form-select" aria-label="Default select example">
+                            <option value="0">Select the loan to pay</option>
+                            <option v-for="loan of loans" :value="loan.id">{{loan.name}} Value of your fee: US${{new
+                                Intl.NumberFormat("de-DE").format(loan.amount/loan.payments)}}</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select v-model="idAccount" class="form-select" aria-label="Default select example">
+                            <option value="0">Select your payment account</option>
+                            <option v-for="account of accounts" :value="account.id">{{account.number}}
+                                (Balance: US${{new
+                                Intl.NumberFormat("de-DE").format(account.balance)}})
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="padding-right: 5px !important;">
+                            Enter the amount here US$</span>
+                        <input v-model="amount" type="number" class="form-control" @keyup.enter="payLoan()">
+                    </div>
+                </div>
+                <div class="col-auto d-flex justify-content-center">
+                    <button style="background-color: rgb(53, 162, 159) !important; border: none; margin-top: 1rem;"
+                        type="button" class="Btn" @click.prevent="payLoan()" @keyup.enter="payLoan()"
+                        data-text="Confirm pay">Confirm pay</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="d-flex justify-content-around align-items-center">
+        <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+        <div>
+            <img class="imgFoot" src="../images/facebook.png" alt="">
+            <img class="imgFoot" src="../images/instagram.png" alt="">
+            <img class="imgFoot" src="../images/whatsapp.png" alt="">
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/payLoan.js"></script>
+</body>
+
+</html>

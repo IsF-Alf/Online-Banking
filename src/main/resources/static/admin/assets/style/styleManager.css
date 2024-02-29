@@ -1,0 +1,88 @@
+#app {
+    background-color: rgb(236, 234, 241);
+    min-height: 100vh;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+header {
+    height: 25vh;
+}
+
+nav {
+    background-color: rgb(82, 9, 150);
+    width: 100vw;
+}
+
+.navLink {
+    height: 5vh;
+    width: 30vw;
+}
+
+.navLink>a {
+    height: 2rem;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgb(197, 156, 23);
+    border-radius: 8px;
+}
+
+.imgLogo {
+    height: 15vh;
+}
+
+main {
+    padding-top: 1rem;
+    min-height: 65vh;
+}
+
+footer {
+    height: 10vh;
+    background-color: rgb(82, 9, 150);
+}
+
+h1 {
+    text-align: center;
+    color: rgb(37, 3, 68) !important;
+    background-color: rgba(91, 92, 54, 0.329);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 1rem;
+    margin-top: 1rem !important;
+}
+
+.transactionDebit {
+    color: red !important;
+}
+
+.transactionCredit {
+    color: green !important;
+}
+
+
+@media(max-width:720px) {
+    nav {
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    .navLink {
+        flex-direction: column;
+        min-height: 20vh;
+    }
+
+    .accounts {
+        flex-direction: column;
+    }
+
+    header {
+        height: 45vh;
+    }
+    .imgLogo {
+        height: 15vh;
+    }
+}

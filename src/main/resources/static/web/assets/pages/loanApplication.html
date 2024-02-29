@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking | Loan Application</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style/styleWeb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center headerLoanApply">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="../images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="../images/logoBank.png" alt="">
+            </nav>
+            <div class="navLink d-flex justify-content-evenly">
+                <a class="Btn" href="../../accounts.html" data-text="Accounts">Accounts</a>
+                <a class="Btn" href="./card.html" data-text="Cards">Cards</a>
+                <a class="Btn" href="./transfers.html" data-text="Transfer">Transfer</a>
+                <button class="Btn" type="button" @click.prevent="logoutClient()" data-text="logout">logout</button>
+            </div>
+            <h2>Apply for your loan</h2>
+        </header>
+        <main class=" d-flex align-items-center flex-column mainWithFormLoan">
+            <div class=" transferInp">
+                <div>
+                    <p class="mb-0 mt-1">Select the type of loan you wish to apply for</p>
+                    <div class="input-group mb-3">
+                        <select v-model="loanId" class="form-select" aria-label="Default select example">
+                            <option>Select the type of loan</option>
+                            <option v-for="loan in loans" :value="loan.id">{{ loan.name }} (Max amount: US$
+                                {{(Number(loan.maxAmount))}} - Interest: {{(loan.interestRate * 100)}}%)</option>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline d-flex flex-column align-items-center" v-if="loanId"
+                        style="padding-bottom: 1rem;">
+                        <h5>Select the number of payments</h5>
+                        <div style="display: flex; flex-wrap: wrap; gap: 3rem;">
+                            <div v-for="payment in loans.find(loan => loan.id === loanId).payments">
+                                <input v-model="payments" class="form-check-input" type="radio"
+                                    name="inlineRadioOptions" :value="payment">
+                                <label class="form-check-label" for="inlineRadioOptions">{{ payment }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Amount to request US$</span>
+                        <input v-model="amount" type="number" class="form-control"
+                            aria-label="Amount (to the nearest dollar)" x>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select v-model="destinationAccount" class="form-select" aria-label="Default select example">
+                            <option value="">Select your destination account</option>
+                            <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <h6 v-if="loanId && amount && payments"
+                        style="text-align: center; display: flex; justify-content: center;">To be paid in {{payments}}
+                        payments of US$ {{(Number(amount + (amount * getInterestRate())) / payments)}}</h6>
+                </div>
+                <div class="col-auto d-flex justify-content-around">
+                    <button type="button" class="Btn" @click.prevent="applyForLoan" data-text="Apply">Apply</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="d-flex justify-content-around align-items-center">
+        <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+        <div>
+            <img class="imgFoot" src="../images/facebook.png" alt="">
+            <img class="imgFoot" src="../images/instagram.png" alt="">
+            <img class="imgFoot" src="../images/whatsapp.png" alt="">
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/loanApplication.js"></script>
+</body>
+
+</html>

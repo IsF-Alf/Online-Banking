@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking | Transactions</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style/styleWeb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center headerAccount">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="../images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="../images/logoBank.png" alt="">
+            </nav>
+            <div class="navLinkAdm d-flex justify-content-evenly">
+                <a class="Btn" href="../../accounts.html" data-text="Accounts">Accounts</a>
+                <a class="Btn" href="./card.html" data-text="Cards">Cards</a>
+                <a class="Btn" href="./transfers.html" data-text="Transfer">Transfer</a>
+                <a class="Btn" href="./loanApplication.html" data-text="Loan application">Loan application</a>
+                <button class="Btn" type="button" @click.prevent="logoutClient()" data-text="logout">logout</button>
+            </div>
+        </header>
+        <main class=" d-flex align-items-center flex-column mainNewLoan">
+            <div class=" d-flex align-items-center flex-column transferInpNL">
+                <div class="d-flex flex-column align-items-center w-75 gap">
+                    <div class="input-group ">
+                        <span class="input-group-text spanNewLoan">Loan name</span>
+                        <input v-model="loanName" type="text" class="form-control"
+                            aria-label="Amount (to the nearest dollar)" x>
+                    </div>
+                    <div class="input-group  m-2">
+                        <span class="input-group-text spanNewLoan">Maximum amount US$</span>
+                        <input v-model="maxAmount" type="number" class="form-control"
+                            aria-label="Amount (to the nearest dollar)" x>
+                    </div>
+                    <div class="input-group flex-column  m-2">
+                        <p>Payments (select all the options you want)</p>
+                        <div class="d-flex justify-content-between w-75 chekNewLoan">
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="6"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    6
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="12"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    12
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="18"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    18
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="24"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    24
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="30"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    30
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="36"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    36
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="payments" class="form-check-input" type="checkbox" value="48"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    48
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group ">
+                        <p class="spanNewLoan">Interest percentage % (Example: for 25% write 0.25)</p>
+                        <input v-model="interestPercentage" type="text" class="form-control"
+                            aria-label="Amount (to the nearest dollar)" x style="height: 27px !important;">
+                    </div>
+                </div>
+                <div class="col-auto d-flex justify-content-around">
+                    <button @click.prevent="createNewLoan()" type="button" class="Btn"
+                        data-text="Create">Create</button>
+                </div>
+            </div>
+        </main>
+        <footer class="d-flex justify-content-around align-items-center">
+            <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+            <div>
+                <img class="imgFoot" src="../images/facebook.png" alt="">
+                <img class="imgFoot" src="../images/instagram.png" alt="">
+                <img class="imgFoot" src="../images/whatsapp.png" alt="">
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/newLoan.js"></script>
+</body>
+
+</html>

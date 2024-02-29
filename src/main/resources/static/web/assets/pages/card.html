@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking | Cards</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style/styleWeb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <header class="d-flex flex-column align-items-center headerCard">
+            <nav class="d-flex justify-content-around align-items-center">
+                <img class="imgLogo" src="../images/logo.png" alt="">
+                <h1>Brothers Bank</h1>
+                <img class="imgLogo" src="../images/logoBank.png" alt="">
+            </nav>
+            <div class="navLink d-flex justify-content-evenly">
+                <a class="Btn" href="../../accounts.html" data-text="Accounts">Accounts</a>
+                <a class="Btn" href="./createCard.html" data-text="Create cards">Create cards</a>
+                <a class="Btn" href="./transfers.html" data-text="Transfer">Transfer</a>
+                <a class="Btn" href="./loanApplication.html" data-text="Loan application">Loan application</a>
+                <button class="Btn" type="button" @click.prevent="logoutClient()" data-text="logout">logout</button>
+            </div>
+            <h2>These are your cards</h2>
+        </header>
+        <main class="d-flex justify-content-center mainCard">
+            <div style=" margin-top: 5rem !important;">
+                <h3 class="text-center">Debit cards</h3>
+                <div class="containerCRD" v-for="card of debitCard" v-if="debitCard.length> 0">
+                    <div class="cardCRD" :class="{'cardThruDate': card.thruDate > currentDate.toLocaleDateString()}">
+                        <div class="card-innerCRD">
+                            <div class="frontCRD" :class="{
+                                'cardGold': card.color === 'GOLD',
+                                'cardSilver': card.color === 'SILVER',
+                                'cardTitanium': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-imgCRD">
+                                <div class="rowCRD card-noCRD">
+                                    <p>{{card.number}}</p>
+                                </div>
+                                <div class="rowCRD">
+                                    <img class="imgCard" src="https://i.ibb.co/G9pDnYJ/chip.png" width="60px">
+                                    <img class="imgCard" src="https://i.ibb.co/WHZ3nRJ/visa.png" width="60px">
+                                </div>
+                                <div class="rowCRD card-holderCRD">
+                                    <p>CARD HOLDER</p>
+                                    <p>VALID TILL</p>
+                                </div>
+                                <div class="rowCRD nameCRD">
+                                    <p>{{card.cardHolder}}</p>
+                                    <p>{{card.thruDate}}</p>
+                                </div>
+                            </div>
+                            <div class="backCRD" :class="{
+                                'cardGold': card.color === 'GOLD',
+                                'cardSilver': card.color === 'SILVER',
+                                'cardTitanium': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-imgCRD">
+                                <div class="barCRD"></div>
+                                <div class="rowCRD card-cvvCRD">
+                                    <div>
+                                        <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                    </div>
+                                    <p>cvv: {{card.cvv}}</p>
+                                </div>
+                                <div class="rowCRD card-textCRD">
+                                    <p>this is a virtual card design using HTML and CSS. You can aslo design something
+                                        like
+                                        this.</p>
+                                </div>
+                                <div class="rowCRD signatureCRD">
+                                    <p>CUSTOMER SIGNATURE</p>
+                                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p v-if="card.thruDate > currentDate.toLocaleDateString()">Expired card</p>
+                    <div>
+                        <a class="Btn" @click.prevent="deleteCard(card.id)" data-text="Delete Card">Delete Card</a>
+                    </div>
+                </div>
+                <h4 v-else>You dont have a debit card</h4>
+            </div>
+            <div>
+                <h3 class="text-center">Credit cards</h3>
+                <div class="containerCRD" v-for="card of creditCard" v-if="creditCard.length> 0">
+                    <div class="cardCRD" :class="{'cardThruDate': card.thruDate > currentDate.toLocaleDateString()}">
+                        <div class="card-innerCRD">
+                            <div class="frontCRD" :class="{
+                                'cardGold': card.color === 'GOLD',
+                                'cardSilver': card.color === 'SILVER',
+                                'cardTitanium': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-imgCRD">
+                                <div class="rowCRD">
+                                    <img src="https://i.ibb.co/G9pDnYJ/chip.png" width="60px">
+                                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="60px">
+                                </div>
+                                <div class="rowCRD card-noCRD">
+                                    <p>{{card.number}}</p>
+                                </div>
+                                <div class="rowCRD card-holderCRD">
+                                    <p>CARD HOLDER</p>
+                                    <p>VALID TILL</p>
+                                </div>
+                                <div class="rowCRD nameCRD">
+                                    <p>{{card.cardHolder}}</p>
+                                    <p>{{card.thruDate}}</p>
+                                </div>
+                            </div>
+                            <div class="backCRD" :class="{
+                                'cardGold': card.color === 'GOLD',
+                                'cardSilver': card.color === 'SILVER',
+                                'cardTitanium': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-imgCRD">
+                                <div class="barCRD"></div>
+                                <div class="rowCRD card-cvvCRD">
+                                    <div>
+                                        <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                    </div>
+                                    <p>cvv: {{card.cvv}}</p>
+                                </div>
+                                <div class="rowCRD card-textCRD">
+                                    <p>this is a virtual card design using HTML and CSS. You can aslo design something
+                                        like
+                                        this.</p>
+                                </div>
+                                <div class="rowCRD signatureCRD">
+                                    <p>CUSTOMER SIGNATURE</p>
+                                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p v-if="card.thruDate > currentDate.toLocaleDateString()">Expired card</p>
+                    <div>
+                        <a class="Btn" @click.prevent="deleteCard(card.id)" data-text="Delete Card">Delete Card</a>
+                    </div>
+                </div>
+                <h4 v-else>You dont have a credit card </h4>
+            </div>
+        </main>
+        <footer class="d-flex justify-content-around align-items-center">
+            <p class="slogan">Legacy, Trust, Brotherhood: Elevating Your Financial Journey.</p>
+            <div>
+                <img class="imgFoot" src="../images/facebook.png" alt="">
+                <img class="imgFoot" src="../images/instagram.png" alt="">
+                <img class="imgFoot" src="../images/whatsapp.png" alt="">
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/card.js"></script>
+</body>
+
+</html>
